@@ -1,0 +1,22 @@
+<html t:type="layout" title="diagnozo Search"
+      t:sidebarTitle="Focused Diagnosis"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+        <!-- Most of the page content, including <head>, <body>, etc. tags, comes from Layout.tml -->
+
+
+	<h3>Available Diagnosis</h3>
+		<ul>
+        	<t:loop source="Diagnosis" value="diagnose">
+            	<li><t:actionlink t:id="showDiagnose" context="diagnose">${diagnose}</t:actionlink></li>
+        	</t:loop>
+		</ul>
+	<p:sidebar>
+		<t:if test="focusDiagnose">
+			<dl>
+				<dt>_id</dt><dd>${focusDiagnose.get_id()}</dd>
+				<dt>Diagnosis</dt><dd>${focusDiagnose.getDiagnosis()}</dd>
+			</dl>
+		</t:if>
+    </p:sidebar>
+</html>
