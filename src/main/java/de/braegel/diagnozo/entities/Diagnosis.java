@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.UnknownHostException;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -18,8 +19,9 @@ import com.mongodb.Mongo;
 import com.mongodb.MongoException;
 
 public class Diagnosis {
-	public String diagnosis;
-	private String _id; //TODO _id is not just a String
+	private String diagnosis;
+	private String _id; // TODO _id is not just a String
+	private Map<String, Set<String>> tags;
 	
 	public String getDiagnosis() {
 		return diagnosis;
