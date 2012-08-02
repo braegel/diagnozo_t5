@@ -11,12 +11,15 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
+import org.codehaus.jackson.map.ObjectMapper;
+
 import net.vz.mongodb.jackson.JacksonDBCollection;
 
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.Mongo;
 import com.mongodb.MongoException;
+import org.codehaus.jackson.map.*;
 
 public class Diagnosis {
 	private String diagnosis;
@@ -39,6 +42,14 @@ public class Diagnosis {
 		this._id = _id;
 	}
 
+	public Map<String, Set<String>> getTags() {
+		return tags;
+	}
+
+	public void setTags(Map<String, Set<String>> tags) {
+		this.tags = tags;
+	}
+
 	private static Mongo m;
 	private static DB db;
 
@@ -56,7 +67,10 @@ public class Diagnosis {
 		m = new Mongo( MongoDBHost , MongoDBPort );
     	db= m.getDB( MongoDBDatabase );
        	DBCollection coll = db.getCollection(MongoDBCollection);
-    	return JacksonDBCollection.wrap(coll, Diagnosis.class, String.class);
+       	
+       	ObjectMapper mapper = new ObjectMapper();
+       	mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    	return JacksonDBCollection.wrap(coll, Diagnosis.class, String.class, mapper);
 	}
 	
 }
